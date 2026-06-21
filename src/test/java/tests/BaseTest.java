@@ -5,15 +5,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import pages.NewAccountPage;
-import pages.NewContactsPage;
+import pages.AccountPage;
+import pages.ContactsPage;
+import pages.LoginPage;
+
 import java.time.Duration;
 import java.util.HashMap;
 
 public class BaseTest {
     protected WebDriver driver;
-    protected NewAccountPage newAccountPage;
-    protected NewContactsPage newContactsPage;
+    protected AccountPage AccountPage;
+    protected ContactsPage ContactsPage;
+    protected LoginPage LoginPage;
 
     @BeforeMethod(alwaysRun = true, description = "Настройка браузера")
     public void setUp() {
@@ -32,12 +35,15 @@ public class BaseTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-        newAccountPage = new NewAccountPage(driver);
-        newContactsPage = new NewContactsPage(driver);
+        AccountPage = new AccountPage(driver);
+        ContactsPage = new ContactsPage(driver);
+        LoginPage = new LoginPage(driver);
     }
 
     @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
     public void tearDown() {
-        driver.quit();
+        if (driver !=null) {
+            driver.quit();
+        }
     }
 }
