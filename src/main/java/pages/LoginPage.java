@@ -1,11 +1,9 @@
 package pages;
 
-import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-@Log4j2
 public class LoginPage extends BasePage {
 
     private final By USERNAME_FIELD = By.id("user_name");
@@ -29,14 +27,23 @@ public class LoginPage extends BasePage {
         return this;
     }
     public LoginPage login(String user, String password) {
-        log.info("Logging in as '{}'", user);
         wait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_FIELD));
         driver.findElement(USERNAME_FIELD).sendKeys(user);
         wait.until(ExpectedConditions.visibilityOfElementLocated(PASSWORD_FIELD));
         driver.findElement(PASSWORD_FIELD).sendKeys(password);
         driver.findElement(LOGIN_BUTTON).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("logout_link")));
-        log.info("Login successful, current URL: {}", driver.getCurrentUrl());
         return  this;
+    }
+
+    public AccountPage openAccountPage() {
+        driver.get("https://demo.suiteondemand.com/index.php?module=Accounts&action=EditView&return_module=Accounts&" +
+                "return_action=DetailView");
+        return new AccountPage(driver);
+    }
+
+    public ContactsPage openContactsPage() {
+        driver.get("https://demo.suiteondemand.com/index.php?module=Contacts&action=EditView&return_module=Contacts" +
+                "&return_action=DetailView");
+        return new ContactsPage(driver);
     }
 }
