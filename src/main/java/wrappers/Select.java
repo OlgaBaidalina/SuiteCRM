@@ -1,9 +1,12 @@
 package wrappers;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+@Log4j2
 public class Select {
+
     WebDriver driver;
     String label;
 
@@ -14,6 +17,7 @@ public class Select {
         this.label = label;
     }
     public void select(String option) {
+        log.info("Selecting '{}' inside select '{}'", option, label);
         driver.findElement(By.xpath(String.format(SELECT_PATTERN + "select", label))).click();
         driver.findElement(By.xpath(String.format(SELECT_PATTERN + "option[contains(text(), '%s')]", label, option)))
                 .click();

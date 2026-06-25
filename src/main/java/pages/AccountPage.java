@@ -1,11 +1,13 @@
 package pages;
 
 import dto.Account;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import wrappers.*;
 
+@Log4j2
 public class AccountPage extends BasePage {
 
     private final By NAME_FIELD = By.id("name");
@@ -29,6 +31,7 @@ public class AccountPage extends BasePage {
     }
 
     public AccountPage addAccount (Account account) {
+        log.info("Adding new account with name: '{}'", account.getName());
         new Input(driver, "Name").write(account.getName());
         new Input(driver, "Office Phone").write(account.getPhone());
         new Input(driver, "Website").write(account.getWebsite());

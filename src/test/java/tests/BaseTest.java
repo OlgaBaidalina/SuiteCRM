@@ -5,18 +5,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import pages.AccountPage;
-import pages.ContactsPage;
-import pages.LoginPage;
+import step.AccountStep;
+import step.ContactsStep;
+import step.LoginStep;
 
 import java.time.Duration;
 import java.util.HashMap;
 
 public class BaseTest {
     protected WebDriver driver;
-    protected AccountPage AccountPage;
-    protected ContactsPage ContactsPage;
-    protected LoginPage LoginPage;
+    protected LoginStep loginStep;
+    protected AccountStep accountStep;
+    protected ContactsStep contactsStep;
 
     @BeforeMethod(alwaysRun = true, description = "Настройка браузера")
     public void setUp() {
@@ -25,7 +25,6 @@ public class BaseTest {
         chromePrefs.put("credentials_enable_service", false);
         chromePrefs.put("profile.password_manager_enabled", false);
         options.setExperimentalOption("prefs", chromePrefs);
-
         options.addArguments("--disable-notifications");
         options.addArguments("--disable-popup-blocking");
         options.addArguments("--disable-infobars");
@@ -35,9 +34,9 @@ public class BaseTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-        AccountPage = new AccountPage(driver);
-        ContactsPage = new ContactsPage(driver);
-        LoginPage = new LoginPage(driver);
+        loginStep = new LoginStep(driver);
+        accountStep = new AccountStep(driver);
+        contactsStep = new ContactsStep(driver);
     }
 
     @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
