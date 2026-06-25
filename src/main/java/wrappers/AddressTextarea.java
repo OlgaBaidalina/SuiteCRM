@@ -1,8 +1,10 @@
 package wrappers;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+@Log4j2
 public class AddressTextarea {
 
     WebDriver driver;
@@ -16,6 +18,7 @@ public class AddressTextarea {
     }
 
     public void write(String text) {
+        log.info("Writing '{}' in to '{}' in address '{}'", text, label, addressLabel);
         driver.findElement(By.xpath(String.format("//*[contains(text(),'%s')]/ancestor::" +
                 "div[contains(@class, 'edit-view-row-item')]//*[contains(text(), '%s')]//ancestor::" +
                 "tr//textarea", addressLabel, label))).sendKeys(text);
